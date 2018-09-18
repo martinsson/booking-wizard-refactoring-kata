@@ -6,10 +6,57 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class BookingWizard {
+interface ViewController {
+
+    void show();
+}
+
+abstract class NavigationController implements ViewController {
+
+    public void pushViewController(ViewController viewController) {
+        viewController.show();
+    }
+}
+
+
+
+class TripTypeController implements ViewController {
+
+    BookingWizard bookingWizard;
+
+    public TripTypeController(BookingWizard bookingWizard) {
+        this.bookingWizard = bookingWizard;
+    }
+
+    @Override
+    public void show() {
+        Scanner scanner = new Scanner(System.in);
+
+        try {
+            System.out.println("Hello,  welcome to Airdream, the airline of your dreams");
+            System.out.println("What kind of flight do you want to book?");
+            System.out.println("[1] outward");
+            System.out.println("[2] round trip");
+            int tripType = scanner.nextInt();
+            if (tripType != 1 && tripType != 2) {
+                System.out.println("Invalid input. Please follow the instructions");
+                this.show();
+            }
+            if (bookingWizard != null) {
+                bookingWizard.tripType = tripType;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please follow the instructions");
+            this.show();
+        }
+
+    }
+}
+
+public class BookingWizard extends NavigationController {
 
     private int currentStep = 0;
-    private int tripType;
+    int tripType;
     private String departureCity;
     private String arrivalCity;
     private Date departureDate;
@@ -18,10 +65,11 @@ public class BookingWizard {
     private Boolean confirmed = null;
 
     public static void main(String[] args) {
-        new BookingWizard().start();
+        new BookingWizard().show();
     }
 
-    private void start() {
+    @Override
+    public void show() {
         currentStep = 0;
         while (currentStep < 9) {
             wizardStep();
@@ -30,22 +78,11 @@ public class BookingWizard {
     }
 
     private void wizardStep() {
+
         Scanner scanner = new Scanner(System.in);
+
         if (currentStep == 0) {
-            try {
-                System.out.println("Hello, welcome to Airdream, the airline of your dreams");
-                System.out.println("What kind of flight do you want to book?");
-                System.out.println("[1] outward");
-                System.out.println("[2] round trip");
-                tripType = scanner.nextInt();
-                if (tripType != 1 && tripType != 2) {
-                    System.out.println("Invalid input. Please follow the instructions");
-                    wizardStep();
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please follow the instructions");
-                wizardStep();
-            }
+            this.pushViewController(new TripTypeController(this));
         } else if (currentStep == 1) {
             System.out.println("Select your departure city");
             departureCity = scanner.nextLine();
