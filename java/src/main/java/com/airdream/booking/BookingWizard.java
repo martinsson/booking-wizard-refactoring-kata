@@ -9,11 +9,9 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-// data passes between controllers by mutating global object (bookingwizard)
-// Every controller knows by type the next controller(s)
+// data passes between controllers argument passing
+// Every controller knows semantically the next step (but not the ctrl type)
 // Booking wizard is the framework, is the data
-
-
 
 class TripTypeController extends ViewController {
 
@@ -37,10 +35,7 @@ class TripTypeController extends ViewController {
                 System.out.println("Invalid input. Please follow the instructions");
                 this.show();
             }
-            if (bookingWizard != null) {
-                bookingWizard.tripType = tripType;
-            }
-            bookingWizard.pushViewController(new DepartureCityController(bookingWizard));
+            bookingWizard.goToDepartureCityChoice(tripType);
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please follow the instructions");
             this.show();
@@ -61,15 +56,16 @@ class DepartureCityController extends ViewController {
     public void show() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Select your departure city");
-        bookingWizard.departureCity = scanner.nextLine();
+        String departureCity = scanner.nextLine();
+        bookingWizard.goToDateSelection(departureCity);
     }
 }
 
 public class BookingWizard extends NavigationController {
 
     private int currentStep = 0;
-    int tripType;
-    String departureCity;
+    private int tripType;
+    private String departureCity;
     private String arrivalCity;
     private Date departureDate;
     private Date returnDate;
@@ -186,5 +182,14 @@ public class BookingWizard extends NavigationController {
                 }
             }
         }
+    }
+
+    public void goToDepartureCityChoice(int tripType) {
+        this.tripType = tripType;
+        this.pushViewController(new DepartureCityController(this));
+    }
+
+    public void goToDateSelection(String departureCity) {
+        this.departureCity = departureCity;
     }
 }
