@@ -9,8 +9,8 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-// data passes between controllers argument passing
-// Every controller knows semantically the next step (but not the ctrl type)
+// data passes between controllers argument passing and casting, or by global object
+// Only the bookingwizard knows about the next step
 // Booking wizard is the framework, is the data
 
 class TripTypeController extends ViewController {
@@ -187,6 +187,30 @@ public class BookingWizard extends NavigationController {
     public void goToDepartureCityChoice(int tripType) {
         this.tripType = tripType;
         this.pushViewController(new DepartureCityController(this));
+    }
+
+    public void done(Object o) {
+        // or we could pass the an instance of a booking object that contains
+        // all the primitives: tripType, departureCity, ...
+        this.currentStep++;
+        ViewController viewController = null;
+        switch (currentStep) {
+            case 0 :
+                this.tripType = (int) o;
+                viewController = new TripTypeController(this);
+                break;
+            case 1 :
+                this.departureCity = (String) o;
+                viewController = new DepartureCityController(this);
+                break;
+
+            default:
+                break;
+        }
+        if (viewController != null) {
+            this.pushViewController(viewController);
+
+        }
     }
 
     public void goToDateSelection(String departureCity) {
