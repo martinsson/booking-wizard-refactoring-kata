@@ -9,6 +9,12 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+// data passes between controllers by mutating global object (bookingwizard)
+// Every controller knows by type the next controller(s)
+// Booking wizard is the framework, is the data
+
+
+
 class TripTypeController extends ViewController {
 
     BookingWizard bookingWizard;
