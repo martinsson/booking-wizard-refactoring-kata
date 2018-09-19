@@ -1,26 +1,15 @@
 package com.airdream.booking;
 
+import com.sdk.ui.NavigationController;
+import com.sdk.ui.ViewController;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-interface ViewController {
-
-    void show();
-}
-
-abstract class NavigationController implements ViewController {
-
-    public void pushViewController(ViewController viewController) {
-        viewController.show();
-    }
-}
-
-
-
-class TripTypeController implements ViewController {
+class TripTypeController extends ViewController {
 
     BookingWizard bookingWizard;
 
@@ -45,6 +34,7 @@ class TripTypeController implements ViewController {
             if (bookingWizard != null) {
                 bookingWizard.tripType = tripType;
             }
+            bookingWizard.pushViewController(new DepartureCityController(bookingWizard));
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please follow the instructions");
             this.show();
@@ -53,11 +43,27 @@ class TripTypeController implements ViewController {
     }
 }
 
+class DepartureCityController extends ViewController {
+
+    private BookingWizard bookingWizard;
+
+    public DepartureCityController(BookingWizard bookingWizard) {
+        this.bookingWizard = bookingWizard;
+    }
+
+    @Override
+    public void show() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Select your departure city");
+        bookingWizard.departureCity = scanner.nextLine();
+    }
+}
+
 public class BookingWizard extends NavigationController {
 
     private int currentStep = 0;
     int tripType;
-    private String departureCity;
+    String departureCity;
     private String arrivalCity;
     private Date departureDate;
     private Date returnDate;
@@ -83,9 +89,7 @@ public class BookingWizard extends NavigationController {
 
         if (currentStep == 0) {
             this.pushViewController(new TripTypeController(this));
-        } else if (currentStep == 1) {
-            System.out.println("Select your departure city");
-            departureCity = scanner.nextLine();
+            currentStep++;
         } else if (currentStep == 2) {
             System.out.println("Select your arrival city");
             arrivalCity = scanner.nextLine();
