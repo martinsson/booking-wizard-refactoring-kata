@@ -10,16 +10,18 @@ import java.util.Scanner;
 public class DepartureDateController extends ViewController {
 
     private BookingWizard bookingWizard;
+    private Scanner scanner;
 
-    public DepartureDateController(BookingWizard bookingWizard) {
+    public DepartureDateController(BookingWizard bookingWizard, Scanner scanner) {
         this.bookingWizard = bookingWizard;
+        this.scanner = scanner;
     }
 
     @Override
     public void show() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Select your departure date (DD/MM/YYYY)");
         String date = scanner.nextLine();
+        System.out.println("got departure date " + date);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Date departureDate = simpleDateFormat.parse(date);
@@ -29,9 +31,9 @@ public class DepartureDateController extends ViewController {
             }
             bookingWizard.departureDate = departureDate;
             if (bookingWizard.tripType == 1) {
-                bookingWizard.pushViewController(new NumberOfPassengersController(bookingWizard));
+                bookingWizard.pushViewController(new NumberOfPassengersController(bookingWizard, scanner));
             } else {
-                bookingWizard.pushViewController(new ReturnDateController(bookingWizard));
+                bookingWizard.pushViewController(new ReturnDateController(bookingWizard, scanner));
             }
         } catch (ParseException e) {
             System.out.println("Invalid input. Please follow the instructions");

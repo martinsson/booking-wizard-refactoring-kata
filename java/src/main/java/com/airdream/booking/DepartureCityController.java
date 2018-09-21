@@ -7,16 +7,17 @@ import java.util.Scanner;
 class DepartureCityController extends ViewController {
 
     private BookingWizard bookingWizard;
+    private Scanner scanner;
 
-    public DepartureCityController(BookingWizard bookingWizard) {
+    public DepartureCityController(BookingWizard bookingWizard, Scanner scanner) {
         this.bookingWizard = bookingWizard;
+        this.scanner = scanner;
     }
 
     @Override
     public void show() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Select your departure city");
         bookingWizard.departureCity = scanner.nextLine();
-        bookingWizard.pushViewController(new DepartureDateController(bookingWizard));
+        bookingWizard.pushViewController(new DepartureDateController(bookingWizard, scanner));
     }
 }

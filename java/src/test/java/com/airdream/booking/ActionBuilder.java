@@ -1,6 +1,8 @@
 package com.airdream.booking;
 
-import java.io.InputStream;
+import java.io.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ActionBuilder {
     private String departure;
@@ -8,8 +10,11 @@ public class ActionBuilder {
     private String arrival;
     private int number;
     private String name1;
+    private int tripType;
+    private String returnDate;
 
     public ActionBuilder oneWay() {
+        this.tripType = 1;
         return this;
     }
 
@@ -28,6 +33,11 @@ public class ActionBuilder {
         return this;
     }
 
+    public ActionBuilder returnDate(String returnDate) {
+        this.returnDate = returnDate;
+        return this;
+    }
+
     public ActionBuilder passengerNumber(int number) {
         this.number = number;
         return this;
@@ -39,7 +49,16 @@ public class ActionBuilder {
     }
 
     public InputStream andConfirms() {
-
-        return null;
+        String userInput = Stream.of(
+                tripType + " " + departure,
+                date,
+                number + " " + name1,
+                arrival,
+//                returnDate,
+                "Yes"
+        )
+                .collect(Collectors.joining("\n"));
+        return new ByteArrayInputStream(userInput.getBytes());
     }
+
 }

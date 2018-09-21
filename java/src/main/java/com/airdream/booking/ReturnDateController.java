@@ -9,15 +9,16 @@ import java.util.Scanner;
 
 public class ReturnDateController extends ViewController {
     private BookingWizard bookingWizard;
+    private Scanner scanner;
 
-    public ReturnDateController(BookingWizard bookingWizard) {
+    public ReturnDateController(BookingWizard bookingWizard, Scanner scanner) {
 
         this.bookingWizard = bookingWizard;
+        this.scanner = scanner;
     }
 
     @Override
     public void show() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Select your return date (DD/MM/YYYY)");
         String date = scanner.nextLine();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -32,7 +33,7 @@ public class ReturnDateController extends ViewController {
                     show();
                 } else {
                     bookingWizard.returnDate = returnDate;
-                    bookingWizard.pushViewController(new NumberOfPassengersController(bookingWizard));
+                    bookingWizard.pushViewController(new NumberOfPassengersController(bookingWizard, scanner));
                 }
             }
         } catch (ParseException e) {

@@ -4,8 +4,14 @@ import java.util.Scanner;
 
 class TripTypeView {
 
+    private Scanner scanner;
+
+    public TripTypeView(Scanner scanner) {
+
+        this.scanner = scanner;
+    }
+
     public int askOneWayOrRoundTrip() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Hello,  welcome to Airdream, the airline of your dreams");
         System.out.println("What kind of flight do you want to book?");
         System.out.println("[1] outward");
