@@ -1,9 +1,9 @@
-package com.airdream.booking;
+package com.airdream.booking.tripType;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-public class TripTypeController implements UIDriver {
+public class TripTypeController implements TripTypeUIDriver {
 
     private Scanner scanner;
 
@@ -34,4 +34,6 @@ public class TripTypeController implements UIDriver {
         }
 
     }
+
+
 }

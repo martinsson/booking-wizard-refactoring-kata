@@ -1,6 +1,8 @@
 package com.airdream.booking;
 
 import com.airdream.adapter.NavigationBridge;
+import com.airdream.booking.tripType.TripTypeController;
+import com.airdream.booking.tripType.TripTypeStep;
 import com.sdk.ui.ViewController;
 
 import java.util.*;
@@ -8,7 +10,7 @@ import java.util.*;
 public class BookingWizard {
 
     private NavigationBridge navigationBridge;
-    int tripType;
+    public int tripType;
     String departureCity;
     String arrivalCity;
     Date departureDate;

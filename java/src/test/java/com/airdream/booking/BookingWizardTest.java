@@ -28,7 +28,7 @@ class BookingWizardTest {
 
         wizard.start();
 
-        Assertions.assertIterableEquals(asList("TripTypeStep", "DepartureCityController",
+        Assertions.assertIterableEquals(asList("TripTypeStep", "DepartureCityStep",
                 "DepartureDateController",
                 "NumberOfPassengersController",
                 "PassengersNamesController",
