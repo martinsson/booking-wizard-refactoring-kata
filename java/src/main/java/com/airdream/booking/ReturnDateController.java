@@ -33,7 +33,7 @@ public class ReturnDateController extends ViewController {
                     show();
                 } else {
                     bookingWizard.returnDate = returnDate;
-                    bookingWizard.pushViewController(new NumberOfPassengersController(bookingWizard, scanner));
+                    bookingWizard.nextStep(new NumberOfPassengersController(bookingWizard, scanner));
                 }
             }
         } catch (ParseException e) {

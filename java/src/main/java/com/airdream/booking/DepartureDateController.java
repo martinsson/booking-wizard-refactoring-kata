@@ -31,9 +31,9 @@ public class DepartureDateController extends ViewController {
             }
             bookingWizard.departureDate = departureDate;
             if (bookingWizard.tripType == 1) {
-                bookingWizard.pushViewController(new NumberOfPassengersController(bookingWizard, scanner));
+                bookingWizard.nextStep(new NumberOfPassengersController(bookingWizard, scanner));
             } else {
-                bookingWizard.pushViewController(new ReturnDateController(bookingWizard, scanner));
+                bookingWizard.nextStep(new ReturnDateController(bookingWizard, scanner));
             }
         } catch (ParseException e) {
             System.out.println("Invalid input. Please follow the instructions");

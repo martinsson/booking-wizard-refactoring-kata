@@ -39,7 +39,7 @@ class TripTypeController extends ViewController {
             return;
         }
 
-        bookingWizard.pushViewController(new DepartureCityController(bookingWizard, scanner));
+        bookingWizard.nextStep(new DepartureCityController(bookingWizard, scanner));
 
     }
 

@@ -21,7 +21,7 @@ public class NumberOfPassengersController extends ViewController {
             System.out.println("Please select the number of passengers");
             int size = scanner.nextInt();
             bookingWizard.passengers = new String[size];
-            bookingWizard.pushViewController(new PassengersNamesController(bookingWizard, scanner));
+            bookingWizard.nextStep(new PassengersNamesController(bookingWizard, scanner));
         } catch (InputMismatchException e) {
             System.out.println("Invalid input. Please follow the instructions");
             show();

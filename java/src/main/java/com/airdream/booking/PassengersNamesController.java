@@ -19,6 +19,6 @@ public class PassengersNamesController extends ViewController {
             System.out.println("Please enter the passenger number " + (i + 1) + " first name and last name");
             bookingWizard.passengers[i] = scanner.nextLine();
         }
-        bookingWizard.pushViewController(new BookingSummaryController(bookingWizard, scanner));
+        bookingWizard.nextStep(new BookingSummaryController(bookingWizard, scanner));
     }
 }

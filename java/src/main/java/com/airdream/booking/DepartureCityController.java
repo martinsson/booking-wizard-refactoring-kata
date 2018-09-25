@@ -18,6 +18,6 @@ class DepartureCityController extends ViewController {
     public void show() {
         System.out.println("Select your departure city");
         bookingWizard.departureCity = scanner.nextLine();
-        bookingWizard.pushViewController(new DepartureDateController(bookingWizard, scanner));
+        bookingWizard.nextStep(new DepartureDateController(bookingWizard, scanner));
     }
 }

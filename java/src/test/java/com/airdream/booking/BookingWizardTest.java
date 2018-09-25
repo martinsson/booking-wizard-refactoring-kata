@@ -5,9 +5,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 
 import static java.util.Arrays.asList;
@@ -26,10 +23,10 @@ class BookingWizardTest {
                 .arrivalCity("Lyon")
                 .andConfirms();
 
-        BookingWizard wizard = new BookingWizard(true);
+        BookingWizard wizard = new BookingWizard(true, new NavigationController());
         System.setIn(actions);
 
-        wizard.show();
+        wizard.start();
 
         Assertions.assertIterableEquals(asList("TripTypeController", "DepartureCityController",
                 "DepartureDateController",

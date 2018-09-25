@@ -18,6 +18,6 @@ public class ArrivalCityController extends ViewController {
     public void show() {
         System.out.println("Select your arrival city");
         bookingWizard.arrivalCity = scanner.nextLine();
-        bookingWizard.pushViewController(new ArrivalCityController(bookingWizard, scanner));
+        bookingWizard.nextStep(new ArrivalCityController(bookingWizard, scanner));
     }
 }

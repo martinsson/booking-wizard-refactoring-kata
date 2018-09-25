@@ -3,10 +3,9 @@ package com.airdream.booking;
 import com.sdk.ui.NavigationController;
 import com.sdk.ui.ViewController;
 
-import java.io.InputStream;
 import java.util.*;
 
-public class BookingWizard extends NavigationController {
+public class BookingWizard {
 
     int tripType;
     String departureCity;
@@ -15,6 +14,7 @@ public class BookingWizard extends NavigationController {
     Date returnDate;
     String[] passengers;
     boolean dryrun;
+    private NavigationController navigation;
     private List<List<String>> steps = new ArrayList<>();
     public List<String> stepsSimple = new ArrayList<>();
 
@@ -22,25 +22,29 @@ public class BookingWizard extends NavigationController {
         this.dryrun = dryrun;
     }
 
+    public BookingWizard(boolean dryrun, NavigationController navigation) {
+        this.dryrun = dryrun;
+        this.navigation = navigation;
+    }
+
     public BookingWizard(boolean b, Map<String, String> actions) {
 
     }
 
-    @Override
-    public void pushViewController(ViewController viewController) {
+    public void nextStep(ViewController viewController) {
         stepsSimple.add(viewController.getClass().getSimpleName());
-        super.pushViewController(viewController);
+        navigation.pushViewController(viewController);
     }
 
     public static void main(String[] args) {
-        new BookingWizard(false).show();
+        new BookingWizard(false).start();
     }
 
-    @Override
-    public void show() {
+    public void start() {
+        navigation.show();
         Scanner scanner = new Scanner(System.in);
 
-        this.pushViewController(new TripTypeController(this, new TripTypeView(scanner), scanner));
+        this.nextStep(new TripTypeController(this, new TripTypeView(scanner), scanner));
     }
 
     public List<List<String>> dump() {

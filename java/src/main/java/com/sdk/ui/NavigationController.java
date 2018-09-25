@@ -1,9 +1,16 @@
 package com.sdk.ui;
 
-public abstract class NavigationController extends ViewController {
+import java.util.Scanner;
+
+public class NavigationController extends ViewController {
 
     public void pushViewController(ViewController viewController) {
         viewController.show();
         viewController.parent = this;
+    }
+
+    @Override
+    public void show() {
+
     }
 }

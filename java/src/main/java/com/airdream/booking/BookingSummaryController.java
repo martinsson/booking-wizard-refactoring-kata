@@ -32,10 +32,10 @@ public class BookingSummaryController extends ViewController {
         String confirmation = scanner.nextLine();
         switch (confirmation) {
             case "Yes":
-                bookingWizard.pushViewController(new BookingConfirmedController(bookingWizard));
+                bookingWizard.nextStep(new BookingConfirmedController(bookingWizard));
                 break;
             case "No":
-                bookingWizard.pushViewController(new BookingCancelledController(bookingWizard));
+                bookingWizard.nextStep(new BookingCancelledController(bookingWizard));
                 break;
             default:
                 System.out.println("Invalid input. Please follow the instructions");
