@@ -1,46 +1,37 @@
 package com.airdream.booking;
 
-import com.sdk.ui.ViewController;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-class TripTypeController extends ViewController {
+public class TripTypeController implements UIDriver {
 
-    private final TripTypeView view;
     private Scanner scanner;
-    BookingWizard bookingWizard;
 
-    public TripTypeController(BookingWizard bookingWizard, TripTypeView view, Scanner scanner) {
-        this.bookingWizard = bookingWizard;
-        this.view = view;
+    public TripTypeController(Scanner scanner) {
         this.scanner = scanner;
     }
 
-    @Override
-    public void show() {
-
+    public int getTripType() {
         try {
-            int tripType = view.askOneWayOrRoundTrip();
+            System.out.println("Hello,  welcome to Airdream, the airline of your dreams");
+            System.out.println("What kind of flight do you want to book?");
+            System.out.println("[1] outward");
+            System.out.println("[2] round trip");
+            int tripType = scanner.nextInt();
             System.out.println("got triptype " + tripType);
+
 
             if (tripType != 1 && tripType != 2) {
                 System.out.println("Invalid input. Please follow the instructions");
-                this.show();
+                return this.getTripType();
             }
-            if (bookingWizard != null) {
-                bookingWizard.tripType = tripType;
-            }
+            return tripType;
 
         } catch (InputMismatchException e) {
 
             System.out.println("Invalid input. Please follow the instructions");
-            this.show();
-            return;
+            return this.getTripType();
         }
 
-        bookingWizard.nextStep(new DepartureCityController(bookingWizard, scanner));
-
     }
-
 }

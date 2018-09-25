@@ -1,5 +1,6 @@
 package com.airdream.booking;
 
+import com.airdream.adapter.NavigationBridge;
 import com.sdk.ui.NavigationController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -8,7 +9,6 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class BookingWizardTest {
 
@@ -23,12 +23,12 @@ class BookingWizardTest {
                 .arrivalCity("Lyon")
                 .andConfirms();
 
-        BookingWizard wizard = new BookingWizard(true, new NavigationController());
+        BookingWizard wizard = new BookingWizard(true, new NavigationBridge(new NavigationController()));
         System.setIn(actions);
 
         wizard.start();
 
-        Assertions.assertIterableEquals(asList("TripTypeController", "DepartureCityController",
+        Assertions.assertIterableEquals(asList("TripTypeStep", "DepartureCityController",
                 "DepartureDateController",
                 "NumberOfPassengersController",
                 "PassengersNamesController",
