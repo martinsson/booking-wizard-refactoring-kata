@@ -19,8 +19,11 @@ public class BookingWizard extends NavigationController {
     public List<String> stepsSimple = new ArrayList<>();
 
     public BookingWizard(boolean dryrun) {
-
         this.dryrun = dryrun;
+    }
+
+    public BookingWizard(boolean b, Map<String, String> actions) {
+
     }
 
     @Override

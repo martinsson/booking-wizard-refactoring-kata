@@ -1,11 +1,13 @@
 package com.airdream.booking;
 
+import com.sdk.ui.NavigationController;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import static java.util.Arrays.asList;
@@ -15,20 +17,17 @@ class BookingWizardTest {
 
     @Test
     void documentation() {
-        ActionBuilder userChooses = new ActionBuilder();
-        InputStream actions = userChooses
+        InputStream actions = new ActionBuilder()
                 .oneWay()
                 .departureCity("London")
                 .departureDate("19/09/2019")
                 .passengerNumber(1)
                 .withNames("Fred Brooks")
                 .arrivalCity("Lyon")
-//                .returnDate("21/09/2019")
                 .andConfirms();
-        System.setIn(actions);
+
         BookingWizard wizard = new BookingWizard(true);
-
-
+        System.setIn(actions);
 
         wizard.show();
 
